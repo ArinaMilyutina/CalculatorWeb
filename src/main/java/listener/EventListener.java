@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 
-
 @WebListener
 public class EventListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {

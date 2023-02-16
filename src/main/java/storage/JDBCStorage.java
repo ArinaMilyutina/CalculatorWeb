@@ -11,6 +11,7 @@ import java.util.Optional;
 public class JDBCStorage implements UserStorage {
 
     Connection connection;
+
     public JDBCStorage() {
         try {
             this.connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "arinemiller22");
@@ -18,6 +19,7 @@ public class JDBCStorage implements UserStorage {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void add(User user) {
         try {

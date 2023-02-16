@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebFilter(servletNames = {"Calc","Log"})
+@WebFilter(servletNames = {"Calc", "Log"})
 public class CalcFilter extends HttpFilter {
 
     @Override
