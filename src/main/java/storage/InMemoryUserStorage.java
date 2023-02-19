@@ -9,7 +9,6 @@ import java.util.Optional;
 public class InMemoryUserStorage implements UserStorage {
     private final static List<User> users = new ArrayList<>();
 
-
     @Override
     public void add(User user) {
         users.add(user);
@@ -23,6 +22,16 @@ public class InMemoryUserStorage implements UserStorage {
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+
+    }
+
+    @Override
+    public List<User> findAll() {
+        return new ArrayList<>();
     }
 
 }

@@ -1,5 +1,5 @@
 
-package servlet;
+package servlet.user;
 
 
 import entity.User;

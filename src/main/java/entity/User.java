@@ -41,6 +41,16 @@ public class User {
         this.id = id;
     }
 
+    public User() {
+    }
+
+    public User(int id, String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
