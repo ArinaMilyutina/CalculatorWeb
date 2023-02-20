@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/history")
+@WebServlet("/historyUser")
 public class HistoryUserServlet extends HttpServlet {
 
     @Override

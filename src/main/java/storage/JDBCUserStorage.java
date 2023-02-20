@@ -1,0 +1,88 @@
+package storage;
+
+import entity.User;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class JDBCUserStorage implements UserStorage {
+
+    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String PASSWORD = "arinemiller22";
+    private static final String USERNAME = "postgres";
+
+    @Override
+    public void add(User user) {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into users values(default, ?, ?, ?)");
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from users where username=?");
+            preparedStatement.setString(1, username);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<User> findAll() {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select*from users");
+            List<User> userList = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String username = resultSet.getString(3);
+                String password = resultSet.getString(4);
+                User users = new User(id, name, username, password);
+                userList.add(users);
+            }
+            return userList;
+        } catch (SQLException ignored) {
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void removeStorage() {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("truncate table users");
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from users where username = ?");
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int id = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            String password = resultSet.getString(4);
+            User user = new User(id, name, username, password);
+            return Optional.of(user);
+        } catch (SQLException ignored) {
+
+        }
+        return Optional.empty();
+    }
+}

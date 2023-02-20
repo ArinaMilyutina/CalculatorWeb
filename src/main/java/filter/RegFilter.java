@@ -15,7 +15,7 @@
 //
 //    @Override
 //    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-//        if (req.getSession() == null) {
+//        if (req.getSession().getAttribute("currentUser") == null) {
 //            chain.doFilter(req, res);
 //        } else {
 //            res.setStatus(403);

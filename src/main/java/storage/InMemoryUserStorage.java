@@ -34,4 +34,9 @@ public class InMemoryUserStorage implements UserStorage {
         return new ArrayList<>();
     }
 
+    @Override
+    public void removeStorage() {
+
+    }
+
 }

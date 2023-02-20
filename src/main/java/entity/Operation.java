@@ -17,6 +17,14 @@ public class Operation {
         this.type = type;
     }
 
+    public Operation(int id, double num1, double num2, double result, String type) {
+        this.num1 = num1;
+        this.num2 = num2;
+        this.result = result;
+        this.type = type;
+        this.id = id;
+    }
+
     public double getNum1() {
         return num1;
     }
