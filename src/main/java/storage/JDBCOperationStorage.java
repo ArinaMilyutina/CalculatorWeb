@@ -86,12 +86,31 @@ public class JDBCOperationStorage implements OperationStorage {
 
     @Override
     public void removeStorage() {
-        try (Connection connection=DriverManager.getConnection(URL,USERNAME,PASSWORD)){
-            PreparedStatement preparedStatement=connection.prepareStatement("truncate table operations");
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("truncate table operations");
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public Optional<Operation> findOperationByUsername(String username) {
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement("select num1,num2,result,type from operations,users where username=?");
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            double num1 = resultSet.getDouble("num1");
+            double num2 = resultSet.getDouble("num2");
+            double result = resultSet.getDouble("result");
+            String type = resultSet.getString("type");
+            Operation operation = new Operation(num1, num2, result, type);
+            return Optional.of(operation);
+
+        } catch (SQLException e) {
+
+        }
+        return Optional.empty();
     }
 }

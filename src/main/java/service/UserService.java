@@ -36,7 +36,8 @@ public class UserService {
     public static Optional<User> findByUser(String username) {
         return userStorage.findByUsername(username);
     }
-    public static void deleteHistory(){
+
+    public static void deleteHistory() {
         userStorage.removeStorage();
     }
 }

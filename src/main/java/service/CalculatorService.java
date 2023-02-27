@@ -76,4 +76,8 @@ public class CalculatorService {
     public static void deleteHistory() {
         operationStorage.removeStorage();
     }
+
+    public static Optional<Operation> findOperationByUsername(String username) {
+        return operationStorage.findOperationByUsername(username);
+    }
 }

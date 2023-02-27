@@ -15,4 +15,6 @@ public interface OperationStorage {
     List<Operation> findAll();
 
     void removeStorage();
+
+    Optional<Operation> findOperationByUsername(String username);
 }

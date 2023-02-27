@@ -13,5 +13,6 @@ public interface UserStorage {
     void deleteByUsername(String username);
 
     List<User> findAll();
+
     void removeStorage();
 }
