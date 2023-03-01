@@ -9,18 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/showingOperation")
-public class ShowingInfoByTypeServlet extends HttpServlet {
+@WebServlet("/findByTypeOperation")
+public class FindByTypeOperationServlet extends HttpServlet {
+    private final CalculatorService calculatorService = new CalculatorService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String type = req.getParameter("type");
-        Optional<Operation> operationList = CalculatorService.findByType(type);
-        if (operationList.isPresent()) {
-            resp.getWriter().println(operationList.get());
-        } else {
+        List<Operation> operationList = calculatorService.findByType(type);
+        if (operationList.isEmpty()) {
             resp.getWriter().println("Operation not found");
+
+        } else {
+            operationList.forEach(resp.getWriter()::println);
         }
     }
 }

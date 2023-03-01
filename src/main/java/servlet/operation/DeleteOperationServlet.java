@@ -13,14 +13,12 @@ import java.util.List;
 
 @WebServlet("/deleteOperation")
 public class DeleteOperationServlet extends HttpServlet {
+    private final CalculatorService calculatorService = new CalculatorService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String type = req.getParameter("type");
-        List<Operation> operationList = CalculatorService.deleteOperation(type);
-        if (operationList.isEmpty()) {
-            resp.getWriter().println("There is no operation.");
-        } else {
-            resp.getWriter().println("Operation is deleted.");
-        }
+        List<Operation> operationList = calculatorService.deleteOperation(type);
+        resp.getWriter().println("Operation is deleted.");
     }
 }

@@ -13,9 +13,11 @@ import java.util.List;
 
 @WebServlet("/historyOperation")
 public class HistoryOperationServlet extends HttpServlet {
+    private final CalculatorService calculatorService = new CalculatorService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Operation> operationList = CalculatorService.findAll();
+        List<Operation> operationList = calculatorService.findAll();
         if (operationList.isEmpty()) {
             resp.getWriter().println("Operation not found.");
         } else {

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 public class CalculatorService {
-    private static final OperationStorage operationStorage = new JDBCOperationStorage();
+    private final OperationStorage operationStorage = new JDBCOperationStorage();
 
     public Optional<Operation> calculate(Operation operation) {
 
@@ -60,24 +60,24 @@ public class CalculatorService {
         return a * b;
     }
 
-    public static List<Operation> findAll() {
+    public List<Operation> findAll() {
         return operationStorage.findAll();
     }
 
-    public static Optional<Operation> findByType(String type) {
+    public List<Operation> findByType(String type) {
         return operationStorage.findByOperation(type);
     }
 
-    public static List<Operation> deleteOperation(String type) {
+    public List<Operation> deleteOperation(String type) {
         operationStorage.deleteOperation(type);
         return new ArrayList<>();
     }
 
-    public static void deleteHistory() {
+    public void deleteHistory() {
         operationStorage.removeStorage();
     }
 
-    public static Optional<Operation> findOperationByUsername(String username) {
+    public List<Operation> findOperationByUsername(String username) {
         return operationStorage.findOperationByUsername(username);
     }
 }

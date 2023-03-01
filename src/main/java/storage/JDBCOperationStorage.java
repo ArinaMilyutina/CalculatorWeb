@@ -2,11 +2,10 @@ package storage;
 
 import entity.Operation;
 
-import javax.xml.transform.Result;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class JDBCOperationStorage implements OperationStorage {
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
@@ -30,22 +29,30 @@ public class JDBCOperationStorage implements OperationStorage {
     }
 
     @Override
-    public Optional<Operation> findByOperation(String type) {
+    public List<Operation> findByOperation(String type) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             PreparedStatement preparedStatement = connection.prepareStatement(" select *from operations where type=?");
-            preparedStatement.setString(1, type);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            int id = resultSet.getInt(1);
-            Double num1 = resultSet.getDouble(2);
-            Double num2 = resultSet.getDouble(3);
-            Double result = resultSet.getDouble(4);
-            Operation operation = new Operation(id, num1, num2, result, type);
-            return Optional.of(operation);
-        } catch (SQLException e) {
+            return getOperations(type, preparedStatement);
+        } catch (SQLException ignored) {
 
         }
-        return Optional.empty();
+        return new ArrayList<>();
+    }
+
+    private List<Operation> getOperations(String type, PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, type);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<Operation> operations = new ArrayList<>();
+        while (resultSet.next()) {
+            Operation operation = new Operation();
+            operation.setId(resultSet.getInt("id"));
+            operation.setNum1(resultSet.getDouble("num1"));
+            operation.setNum2(resultSet.getDouble("num2"));
+            operation.setResult(resultSet.getDouble("result"));
+            operation.setType(resultSet.getString("type"));
+            operations.add(operation);
+        }
+        return operations;
     }
 
     @Override
@@ -77,7 +84,7 @@ public class JDBCOperationStorage implements OperationStorage {
             }
             return operationList;
 
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
 
         }
         return new ArrayList<>();
@@ -95,22 +102,14 @@ public class JDBCOperationStorage implements OperationStorage {
 
     }
 
-    public Optional<Operation> findOperationByUsername(String username) {
+    public List<Operation> findOperationByUsername(String username) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             PreparedStatement preparedStatement = connection.prepareStatement("select num1,num2,result,type from operations,users where username=?");
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            double num1 = resultSet.getDouble("num1");
-            double num2 = resultSet.getDouble("num2");
-            double result = resultSet.getDouble("result");
-            String type = resultSet.getString("type");
-            Operation operation = new Operation(num1, num2, result, type);
-            return Optional.of(operation);
-
-        } catch (SQLException e) {
+            return getOperations(username, preparedStatement);
+        } catch (SQLException ignored) {
 
         }
-        return Optional.empty();
+        return new ArrayList<>();
     }
+
 }

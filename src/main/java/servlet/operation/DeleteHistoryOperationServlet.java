@@ -11,9 +11,11 @@ import java.io.IOException;
 
 @WebServlet("/deleteHistoryOperation")
 public class DeleteHistoryOperationServlet extends HttpServlet {
+    private final CalculatorService calculatorService = new CalculatorService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CalculatorService.deleteHistory();
+        calculatorService.deleteHistory();
         resp.getWriter().println("History was deleted.");
     }
 }

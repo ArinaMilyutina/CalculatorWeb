@@ -3,12 +3,11 @@ package storage;
 import entity.Operation;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OperationStorage {
     void add(Operation operation);
 
-    Optional<Operation> findByOperation(String type);
+    List<Operation> findByOperation(String type);
 
     void deleteOperation(String type);
 
@@ -16,5 +15,5 @@ public interface OperationStorage {
 
     void removeStorage();
 
-    Optional<Operation> findOperationByUsername(String username);
+    List<Operation> findOperationByUsername(String username);
 }
