@@ -18,7 +18,7 @@ public class DeleteOperationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String type = req.getParameter("type");
-        List<Operation> operationList = calculatorService.deleteOperation(type);
+        calculatorService.deleteOperation(type);
         resp.getWriter().println("Operation is deleted.");
     }
 }
