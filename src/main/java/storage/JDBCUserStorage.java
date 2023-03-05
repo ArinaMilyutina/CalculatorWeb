@@ -7,16 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class JDBCUserStorage implements UserStorage {
-
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String PASSWORD = "arinemiller22";
-    private static final String USERNAME = "postgres";
+public class JDBCUserStorage implements UserStorage, JDBCConstantes {
 
     @Override
     public void add(User user) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into users values(default, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
@@ -29,7 +25,7 @@ public class JDBCUserStorage implements UserStorage {
     @Override
     public void deleteByUsername(String username) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from users where username=?");
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_USERNAME);
             preparedStatement.setString(1, username);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -41,7 +37,7 @@ public class JDBCUserStorage implements UserStorage {
     public List<User> findAll() {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select*from users");
+            ResultSet resultSet = statement.executeQuery(SELECT_USERS);
             List<User> userList = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
@@ -60,7 +56,7 @@ public class JDBCUserStorage implements UserStorage {
     @Override
     public void removeStorage() {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("truncate table users");
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -71,7 +67,7 @@ public class JDBCUserStorage implements UserStorage {
     @Override
     public Optional<User> findByUsername(String username) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from users where username = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
