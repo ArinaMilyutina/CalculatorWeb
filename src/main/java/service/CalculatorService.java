@@ -5,33 +5,32 @@ import storage.JDBCOperationStorage;
 import storage.OperationStorage;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
-public class CalculatorService {
+public class CalculatorService extends Calculator {
     private final OperationStorage operationStorage = new JDBCOperationStorage();
 
     public Optional<Operation> calculate(Operation operation) {
 
         switch (operation.getType()) {
-            case "sum" -> {
+            case sum -> {
                 operation.setResult(sum(operation.getNum1(), operation.getNum2()));
                 operationStorage.add(operation);
                 return Optional.of(operation);
             }
-            case "div" -> {
+            case div -> {
                 operation.setResult(div(operation.getNum1(), operation.getNum2()));
                 operationStorage.add(operation);
                 return Optional.of(operation);
             }
-            case "mul" -> {
+            case mul -> {
                 operation.setResult(mul(operation.getNum1(), operation.getNum2()));
                 operationStorage.add(operation);
                 return Optional.of(operation);
             }
-            case "res" -> {
+            case res -> {
                 operation.setResult(res(operation.getNum1(), operation.getNum2()));
                 operationStorage.add(operation);
                 return Optional.of(operation);
@@ -39,25 +38,6 @@ public class CalculatorService {
         }
         return Optional.empty();
 
-    }
-
-    private double sum(double a, double b) {
-        return a + b;
-    }
-
-
-    private double res(double a, double b) {
-        return a - b;
-    }
-
-
-    private double div(double a, double b) {
-        return a / b;
-    }
-
-
-    private double mul(double a, double b) {
-        return a * b;
     }
 
     public List<Operation> findAll() {
@@ -68,16 +48,12 @@ public class CalculatorService {
         return operationStorage.findByOperation(type);
     }
 
-    public List<Operation> deleteOperation(String type) {
-        operationStorage.deleteOperation(type);
-        return new ArrayList<>();
+    public void deleteOperation(Operation.Type type) {
+        operationStorage.deleteOperation(String.valueOf(type));
     }
 
     public void deleteHistory() {
         operationStorage.removeStorage();
     }
 
-    public List<Operation> findOperationByUsername(String username) {
-        return operationStorage.findOperationByUsername(username);
-    }
 }
