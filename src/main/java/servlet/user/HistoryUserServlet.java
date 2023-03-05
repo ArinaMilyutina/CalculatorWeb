@@ -13,10 +13,11 @@ import java.util.List;
 
 @WebServlet("/historyUser")
 public class HistoryUserServlet extends HttpServlet {
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> allUsers = UserService.findAll();
+        List<User> allUsers = userService.findAll();
         if (allUsers.isEmpty()) {
             resp.getWriter().println("User is empty");
         } else {

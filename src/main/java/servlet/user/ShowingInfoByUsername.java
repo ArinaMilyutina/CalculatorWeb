@@ -13,10 +13,12 @@ import java.util.Optional;
 
 @WebServlet("/showingUser")
 public class ShowingInfoByUsername extends HttpServlet {
+    private final UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-        Optional<User> user = UserService.findByUser(username);
+        Optional<User> user = userService.findByUser(username);
         if (user.isPresent()) {
             resp.getWriter().println(user.get());
         } else {

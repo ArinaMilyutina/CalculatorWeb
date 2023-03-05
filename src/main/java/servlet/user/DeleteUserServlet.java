@@ -13,14 +13,16 @@ import java.util.List;
 
 @WebServlet("/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
+    private final UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-        List<User> users = UserService.deleteUser(username);
+        List<User> users = userService.deleteUser(username);
         if (users.isEmpty()) {
-            resp.getWriter().println("User not found.");
-        } else {
             resp.getWriter().println("User was deleted.");
+        } else {
+            resp.getWriter().println("User not found.");
         }
     }
 }
