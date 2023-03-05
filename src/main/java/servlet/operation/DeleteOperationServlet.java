@@ -1,5 +1,6 @@
 package servlet.operation;
 
+import entity.Operation;
 import service.CalculatorService;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ public class DeleteOperationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String type = req.getParameter("type");
+        Operation.Type type = Operation.Type.valueOf(req.getParameter("type"));
         calculatorService.deleteOperation(type);
         resp.getWriter().println("Operation is deleted.");
     }

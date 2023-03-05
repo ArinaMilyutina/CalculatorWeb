@@ -26,7 +26,7 @@ public class CalculatorServlet extends HttpServlet {
         double a = Double.parseDouble(num1);
         double b = Double.parseDouble(num2);
 
-        Optional<Operation> calculate = calculatorService.calculate(new Operation(a, b, type));
+        Optional<Operation> calculate = calculatorService.calculate(new Operation(a, b, Operation.Type.valueOf(type)));
 
         if (calculate.isPresent()) {
             Operation operation = calculate.get();
