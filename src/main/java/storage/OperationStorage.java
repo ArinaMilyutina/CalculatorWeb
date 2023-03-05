@@ -15,5 +15,4 @@ public interface OperationStorage {
 
     void removeStorage();
 
-    List<Operation> findOperationByUsername(String username);
 }
