@@ -47,13 +47,6 @@ public class Operation {
         this.type = type;
     }
 
-    public Operation(double num1, double num2, double result, Type type) {
-        this.num1 = num1;
-        this.num2 = num2;
-        this.result = result;
-
-    }
-
     public double getNum1() {
         return num1;
     }
