@@ -19,10 +19,16 @@ public class HistoryOperationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Operation> operationList = calculatorService.findAll();
         if (operationList.isEmpty()) {
-            resp.getWriter().println("Operation not found.");
+            getServletContext().getRequestDispatcher("/historyOperations.jsp").forward(req, resp);
         } else {
-            operationList.forEach(resp.getWriter()::println);
+            req.setAttribute("operations", operationList);
+            getServletContext().getRequestDispatcher("/historyOperations.jsp").forward(req, resp);
+
         }
 
     }
+
+
 }
+
+
