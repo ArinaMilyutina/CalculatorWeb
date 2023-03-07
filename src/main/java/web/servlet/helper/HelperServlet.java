@@ -1,4 +1,4 @@
-package servlet.helper;
+package web.servlet.helper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

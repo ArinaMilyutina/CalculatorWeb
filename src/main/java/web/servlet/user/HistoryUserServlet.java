@@ -1,4 +1,4 @@
-package servlet.user;
+package web.servlet.user;
 
 import entity.User;
 import service.UserService;
@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/deleteUser")
-public class DeleteUserServlet extends HttpServlet {
+@WebServlet("/historyUser")
+public class HistoryUserServlet extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        List<User> users = userService.deleteUser(username);
-        if (users.isEmpty()) {
-            resp.getWriter().println("User was deleted.");
+        List<User> allUsers = userService.findAll();
+        if (allUsers.isEmpty()) {
+            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
+
         } else {
-            resp.getWriter().println("User not found.");
+            req.setAttribute("operations", allUsers);
+            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
         }
     }
 }

@@ -1,4 +1,4 @@
-package servlet.operation;
+package web.servlet.operation;
 
 import entity.Operation;
 import service.CalculatorService;

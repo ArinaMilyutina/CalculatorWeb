@@ -1,4 +1,4 @@
-package servlet.operation;
+package web.servlet.operation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

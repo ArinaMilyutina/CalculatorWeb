@@ -1,4 +1,4 @@
-package servlet.user;
+package web.servlet.user;
 
 import entity.User;
 import service.UserService;
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 
-@WebServlet("/historyUser")
-public class HistoryUserServlet extends HttpServlet {
+@WebServlet("/showingUser")
+public class ShowingInfoByUsername extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> allUsers = userService.findAll();
-        if (allUsers.isEmpty()) {
-            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
-
+        String username = req.getParameter("username");
+        Optional<User> user = userService.findByUser(username);
+        if (user.isPresent()) {
+            resp.getWriter().println(user.get());
         } else {
-            req.setAttribute("operations", allUsers);
-            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
+            resp.getWriter().println("User not found.");
         }
     }
 }
