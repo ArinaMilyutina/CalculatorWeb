@@ -11,10 +11,10 @@ import java.io.IOException;
 
 @WebServlet("/deleteHistoryUsers")
 public class DeleteHistoryUsersServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService.deleteHistory();
-        resp.getWriter().println("History was deleted.");
+        getServletContext().getRequestDispatcher("/.jsp").forward(req, resp);
     }
 }
 

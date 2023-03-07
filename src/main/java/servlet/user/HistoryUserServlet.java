@@ -19,9 +19,11 @@ public class HistoryUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> allUsers = userService.findAll();
         if (allUsers.isEmpty()) {
-            resp.getWriter().println("User is empty");
+            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
+
         } else {
-            allUsers.forEach(resp.getWriter()::println);
+            req.setAttribute("operations", allUsers);
+            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
         }
     }
 }

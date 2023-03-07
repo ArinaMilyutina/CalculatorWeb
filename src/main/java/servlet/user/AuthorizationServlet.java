@@ -16,9 +16,15 @@ import java.util.Optional;
 
 @WebServlet("/auth")
 public class AuthorizationServlet extends HttpServlet {
-    private final UserService userService=new UserService();
+    private final UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         Optional<User> byUsername = userService.findByUser(username);
@@ -26,11 +32,17 @@ public class AuthorizationServlet extends HttpServlet {
             User user = byUsername.get();
             if (user.getPassword().equals(password)) {
                 req.getSession().setAttribute("currentUser", user);
+                req.setAttribute("username", username);
+                req.setAttribute("password", password);
+                getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
             } else {
                 resp.getWriter().println("Wrong password!");
+                getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
             }
         } else {
             resp.getWriter().println("User not found!");
+            getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
         }
     }
 }
+
