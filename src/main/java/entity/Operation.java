@@ -24,6 +24,7 @@ public class Operation {
         this.type = type;
     }
 
+
     public Operation(int id, double num1, double num2, double result, Type type) {
         this.num1 = num1;
         this.num2 = num2;
@@ -31,6 +32,7 @@ public class Operation {
         this.type = type;
         this.id = id;
     }
+
 
     public Operation() {
     }

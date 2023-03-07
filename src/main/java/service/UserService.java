@@ -28,7 +28,7 @@ public class UserService {
         return userStorage.findByUsername(username);
     }
 
-    public static void deleteHistory() {
+    public void deleteHistory() {
         userStorage.removeStorage();
     }
 }
