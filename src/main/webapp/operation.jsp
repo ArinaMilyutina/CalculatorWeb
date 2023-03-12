@@ -35,7 +35,7 @@
 <form action="/Calculators" method="post">
     <br>
     <button class="button button1">
-        <a href="calculator.jsp">Calculator</a>
+        <a href="calculator">Calculator</a>
     </button>
     <p>
         <button class="button button1">

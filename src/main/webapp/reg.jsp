@@ -47,11 +47,12 @@
 </style>
 <body>
 <form action="/reg" method="post">
-    <p>Registration:</p>
+    <p style="color: blue">Registration:</p>
     <p><input type="text" name="name" placeholder="Name"></p>
     <p><input type="text" name="username" placeholder="Username"></p>
     <p><input type="text" name="password" placeholder="Password"></p>
-    <button class="button button1"><a href="authorization.jsp">Register</a></button>
+    <button class="button button1">Submit</button>
 </form>
+<p style="color: red">${message}</p>
 </body>
 </html>

@@ -44,10 +44,11 @@
 </style>
 <body>
 <form action="/auth" method="post">
-    <p>Authorization:</p>
+    <p style="color: blue">Authorization:</p>
     <p><input type="text" name="username" placeholder="Username"></p>
     <p><input type="text" name="password" placeholder="Password"></p>
-    <button class="button button1"><a href="menu.jsp">Entrance</a></button>
+    <button class="button button1">Submit</button>
 </form>
+<p style="color: red">${message}</p>
 </body>
 </html>

@@ -21,7 +21,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/reg.jsp").forward(req, resp);
 
     }
 
@@ -33,15 +33,12 @@ public class RegistrationServlet extends HttpServlet {
         Optional<User> byUsername = userService.findByUser(username);
         if (byUsername.isEmpty() && (UserValidator.isValidUsername(Objects.requireNonNull(username)) && UserValidator.isValidPassword(Objects.requireNonNull(password)))) {
             userService.create(new User(name, username, password));
-            resp.getWriter().println("Registration is completed.");
+            resp.sendRedirect("/auth");
+            return;
+        } else {
+            req.setAttribute("message", "Registration failed. Check the correctness of the entered data!");
         }
-        if (byUsername.isPresent()) {
-            resp.getWriter().println("Registration failed. Check the correctness of the entered data!");
-        }
-        req.setAttribute("name", name);
-        req.setAttribute("username", username);
-        req.setAttribute("password", password);
-        getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/reg.jsp").forward(req, resp);
 
     }
 

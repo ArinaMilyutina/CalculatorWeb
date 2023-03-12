@@ -31,21 +31,24 @@
     }
 
 </style>
-
-<form action="/menu" method="post">
+<form action="/menu">
+    <p>
     <br>
     <button class="button button1">
-        <a href="operation.jsp">Calculator</a>
-    </button>
+        <a href="/operation.jsp">calculator</a>
+    </button></p>
     <p>
-        <button class="button button1">
-            <a href="user.jsp">User</a>
-        </button>
+    <button class="button button1">
+        <a href="/user.jsp">user</a>
+    </button>
+    </p>
+    <p>
+    <button class="button button1">
+        <a href="/logout">logout</a>
+    </button>
     </p>
     </br>
+    </body>
 </form>
-
-
-</body>
 </html>
 </html>

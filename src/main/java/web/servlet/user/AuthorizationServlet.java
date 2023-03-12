@@ -20,7 +20,7 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
     }
 
     @Override
@@ -31,18 +31,18 @@ public class AuthorizationServlet extends HttpServlet {
         if (byUsername.isPresent()) {
             User user = byUsername.get();
             if (user.getPassword().equals(password)) {
-                req.getSession().setAttribute("currentUser", user);
+                req.getSession().setAttribute("user", user);
                 req.setAttribute("username", username);
                 req.setAttribute("password", password);
-                getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
+                resp.sendRedirect("/");
+                return;
             } else {
-                resp.getWriter().println("Wrong password!");
-                getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
+                req.setAttribute("message", "Wrong password!!!");
             }
         } else {
-            resp.getWriter().println("User not found!");
-            getServletContext().getRequestDispatcher("/authorization.jsp").forward(req, resp);
+            req.setAttribute("message", "User not found.");
         }
+        getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
     }
 }
 
