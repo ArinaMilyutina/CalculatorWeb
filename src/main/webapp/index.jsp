@@ -57,7 +57,7 @@
                 "        <a href=\"/logout\">logout</a>\n" +
                 "    </button>\n" +
                 "    </p>\n" +
-                "    </br>" );
+                "    </br>");
     }
 %>
 </body>
