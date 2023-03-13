@@ -23,6 +23,5 @@
     %>
 
 </ul>
-</form>
 </body>
 </html>

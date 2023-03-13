@@ -14,11 +14,11 @@
 <body>
 <ul>
     <%
-        List<User> operationList = (List<User>) request.getAttribute("operations");
-        if (operationList.isEmpty()) {
-            response.getWriter().println("User is empty");
+        List<User> allUsers = (List<User>) request.getAttribute("users");
+        if (allUsers.isEmpty()) {
+            response.getWriter().println("History is empty");
         } else {
-            operationList.forEach(response.getWriter()::println);
+            allUsers.forEach(response.getWriter()::println);
         }
     %>
 

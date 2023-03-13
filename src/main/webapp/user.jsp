@@ -32,15 +32,18 @@
 
 </style>
 <body>
-<form action="/Users" method="post">
+<form>
     <br>
     <button class="button button1">
-        <a href="deleteUser.jsp">Delete User</a>
+        <a href="deleteHistoryUsers">Delete User</a>
     </button>
     <p>
         <button class="button button1">
-            <a href="showingUser.jsp">History users</a>
+            <a href="historyUser">History users</a>
         </button>
+    </p>
+    <p>
+        <button class="button button1"><a href="index.jsp"> menu</a></button>
     </p>
     </br>
 </form>

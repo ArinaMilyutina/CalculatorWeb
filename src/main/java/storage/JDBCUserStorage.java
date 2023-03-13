@@ -40,14 +40,15 @@ public class JDBCUserStorage implements UserStorage, JDBCConstantes {
             ResultSet resultSet = statement.executeQuery(SELECT_USERS);
             List<User> userList = new ArrayList<>();
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                String username = resultSet.getString(3);
-                String password = resultSet.getString(4);
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
                 User users = new User(id, name, username, password);
                 userList.add(users);
             }
             return userList;
+
         } catch (SQLException ignored) {
         }
         return new ArrayList<>();

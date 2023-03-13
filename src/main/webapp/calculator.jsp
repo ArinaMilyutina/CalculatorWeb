@@ -17,8 +17,9 @@
         padding: 10px;
         border-radius: 8px;
         border: 2px solid #0000ff;
-        width: 220px;
+        width: 250px;
         height: 40px;
+
     }
 
     .button {
