@@ -18,12 +18,8 @@ public class HistoryUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> allUsers = userService.findAll();
-        if (allUsers.isEmpty()) {
+            req.setAttribute("users", allUsers);
             getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
 
-        } else {
-            req.setAttribute("operations", allUsers);
-            getServletContext().getRequestDispatcher("/historyUsers.jsp").forward(req, resp);
-        }
     }
 }

@@ -46,7 +46,7 @@
 <form action="/auth" method="post">
     <p style="color: blue">Authorization:</p>
     <p><input type="text" name="username" placeholder="Username"></p>
-    <p><input type="text" name="password" placeholder="Password"></p>
+    <p><input type="password" name="password" placeholder="Password"></p>
     <button class="button button1">Submit</button>
 </form>
 <p style="color: red">${message}</p>
