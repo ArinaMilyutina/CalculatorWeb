@@ -18,14 +18,8 @@ public class HistoryOperationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Operation> operationList = calculatorService.findAll();
-        if (operationList.isEmpty()) {
-            getServletContext().getRequestDispatcher("/historyOperations.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("operations", operationList);
-            getServletContext().getRequestDispatcher("/historyOperations.jsp").forward(req, resp);
-
-        }
-
+        req.setAttribute("operations", operationList);
+        getServletContext().getRequestDispatcher("/historyOperations.jsp").forward(req, resp);
     }
 
 
