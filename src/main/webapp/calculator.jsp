@@ -27,14 +27,14 @@
         border: 2px solid #0000ff;
         color: blue;
         padding: 10px;
-        text-align: center;
+        text-align: left;
         text-decoration: none;
         display: inline-block;
         font-size: 12px;
         margin: 4px 2px;
         text-transform: uppercase;
-        width: 200px;
-        height: 50px;
+        width: 120px;
+        height: 40px;
     }
 
     .button1 {
@@ -52,5 +52,10 @@
     <button class="button button1">calculate</button>
 </form>
 <p>${result}</p>
+<p>
+    <button class="button button1">
+        <a href="/"> menu</a>
+    </button>
+</p>
 </body>
 </html>

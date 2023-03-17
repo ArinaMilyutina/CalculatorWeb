@@ -46,14 +46,10 @@
             <a href="historyOperation">History operations</a>
         </button>
     </p>
-    <%--    <p>--%>
-    <%--        <button class="button button1">--%>
-    <%--            <a href="findByTypeOperation">History operation by type</a>--%>
-    <%--        </button>--%>
-    <%--    </p>--%>
+
     <p>
         <button class="button button1">
-            <a href="/index.jsp"> menu</a>
+            <a href="/"> menu</a>
         </button>
     </p>
     </br>

@@ -10,6 +10,26 @@
 <head>
     <title>Delete users</title>
 </head>
+<style>
+    .button {
+        background-color: #ffffff;
+        border: 2px solid #0000ff;
+        color: blue;
+        padding: 10px;
+        text-align: left;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        text-transform: uppercase;
+        width: 120px;
+        height: 40px;
+    }
+
+    .button1 {
+        border-radius: 12px;
+    }
+</style>
 <body>
 
 <ul>
@@ -18,5 +38,8 @@
         response.getWriter().println("History is deleted.");
     %>
 </ul>
+<p>
+    <button class="button button1"><a href="/"> menu</a></button>
+</p>
 </body>
 </html>

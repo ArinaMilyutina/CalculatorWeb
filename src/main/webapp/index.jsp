@@ -21,7 +21,7 @@
         font-size: 16px;
         margin: 4px 2px;
         width: 150px;
-        height: 50px;
+        height: 40px;
         text-transform: uppercase;
 
     }
