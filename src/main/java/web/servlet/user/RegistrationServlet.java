@@ -31,7 +31,8 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         Optional<User> byUsername = UserService.getInstance().findByUser(username);
         if (byUsername.isEmpty() && (UserValidator.isValidUsername(Objects.requireNonNull(username)) && UserValidator.isValidPassword(Objects.requireNonNull(password)))) {
-            UserService.getInstance().create(new User(name, username, password));
+            User user=new User(name,username,password);
+            UserService.getInstance().create(user);
             resp.sendRedirect("/auth");
             return;
         } else {
