@@ -8,6 +8,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class JDBCUserStorage implements UserStorage, JDBCConstantes {
+    private static JDBCUserStorage INSTANCE;
+
+    private JDBCUserStorage() {
+
+    }
+
+    public static JDBCUserStorage getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new JDBCUserStorage();
+        }
+        return INSTANCE;
+    }
 
     @Override
     public void add(User user) {

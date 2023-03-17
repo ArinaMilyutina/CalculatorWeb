@@ -12,12 +12,10 @@ import java.io.IOException;
 
 @WebServlet("/deleteOperation")
 public class DeleteOperationServlet extends HttpServlet {
-    private final CalculatorService calculatorService = new CalculatorService();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Operation.Type type = Operation.Type.valueOf(req.getParameter("type"));
-        calculatorService.deleteOperation(type);
+        CalculatorService.getInstance().deleteOperation(type);
         resp.getWriter().println("Operation is deleted.");
     }
 }

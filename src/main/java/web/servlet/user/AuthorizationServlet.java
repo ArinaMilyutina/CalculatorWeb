@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @WebServlet("/auth")
 public class AuthorizationServlet extends HttpServlet {
-    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +26,7 @@ public class AuthorizationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        Optional<User> byUsername = userService.findByUser(username);
+        Optional<User> byUsername = UserService.getInstance().findByUser(username);
         if (byUsername.isPresent()) {
             User user = byUsername.get();
             if (user.getPassword().equals(password)) {

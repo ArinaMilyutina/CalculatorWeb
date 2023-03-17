@@ -15,8 +15,6 @@ import java.util.Optional;
 @WebServlet(name = "Calculator", value = "/calc")
 public class CalculatorServlet extends HttpServlet {
 
-    private final CalculatorService calculatorService = new CalculatorService();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/calculator.jsp").forward(request, response);
@@ -49,7 +47,7 @@ public class CalculatorServlet extends HttpServlet {
             double a = Double.parseDouble(num1);
             double b = Double.parseDouble(num2);
             Operation operation = new Operation(a, b, operations);
-            return calculatorService.calculate(operation);
+            return CalculatorService.getInstance().calculate(operation);
         }
         return Optional.empty();
     }

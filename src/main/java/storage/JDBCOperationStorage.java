@@ -8,6 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
+    private static JDBCOperationStorage INSTANCE;
+
+    private JDBCOperationStorage() {
+
+    }
+
+    public static JDBCOperationStorage getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new JDBCOperationStorage();
+        }
+        return INSTANCE;
+    }
+
     @Override
     public void add(Operation operation) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {

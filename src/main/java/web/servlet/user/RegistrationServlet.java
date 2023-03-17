@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,9 +29,9 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        Optional<User> byUsername = userService.findByUser(username);
+        Optional<User> byUsername = UserService.getInstance().findByUser(username);
         if (byUsername.isEmpty() && (UserValidator.isValidUsername(Objects.requireNonNull(username)) && UserValidator.isValidPassword(Objects.requireNonNull(password)))) {
-            userService.create(new User(name, username, password));
+            UserService.getInstance().create(new User(name, username, password));
             resp.sendRedirect("/auth");
             return;
         } else {

@@ -9,26 +9,38 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserService {
-    private final JDBCUserStorage userStorage = new JDBCUserStorage();
+    private static UserService INSTANCE;
+
+    private UserService() {
+
+    }
+
+    public static UserService getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UserService();
+        }
+        return INSTANCE;
+    }
+
 
     public void create(User user) {
-        userStorage.add(user);
+        JDBCUserStorage.getInstance().add(user);
     }
 
     public List<User> findAll() {
-        return userStorage.findAll();
+        return JDBCUserStorage.getInstance().findAll();
     }
 
     public List<User> deleteUser(String username) {
-        userStorage.deleteByUsername(username);
+        JDBCUserStorage.getInstance().deleteByUsername(username);
         return new ArrayList<>();
     }
 
     public Optional<User> findByUser(String username) {
-        return userStorage.findByUsername(username);
+        return JDBCUserStorage.getInstance().findByUsername(username);
     }
 
     public void deleteHistory() {
-        userStorage.removeStorage();
+        JDBCUserStorage.getInstance().removeStorage();
     }
 }
