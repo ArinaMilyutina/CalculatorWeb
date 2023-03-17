@@ -13,8 +13,7 @@
 <body>
 <ul>
     <%
-        CalculatorService calculatorService = new CalculatorService();
-        calculatorService.deleteHistory();
+        CalculatorService.getInstance().deleteHistory();
         response.getWriter().println("History is deleted.");
     %>
 </ul>

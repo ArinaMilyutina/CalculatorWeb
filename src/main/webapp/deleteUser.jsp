@@ -14,8 +14,7 @@
 
 <ul>
     <%
-        UserService userService = new UserService();
-        userService.deleteHistory();
+        UserService.getInstance().deleteHistory();
         response.getWriter().println("History is deleted.");
     %>
 </ul>
