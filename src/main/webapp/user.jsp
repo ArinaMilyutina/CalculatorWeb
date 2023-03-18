@@ -43,7 +43,7 @@
         </button>
     </p>
     <p>
-        <button class="button button1"><a href="index.jsp"> menu</a></button>
+        <button class="button button1"><a href="/"> menu</a></button>
     </p>
     </br>
 </form>
