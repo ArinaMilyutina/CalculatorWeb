@@ -7,7 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class JDBCUserStorage implements UserStorage, JDBCConstantes {
+public class JDBCUserStorage extends AbstractStorage implements UserStorage {
+    String DELETE_USERS = "truncate table users";
+    String SELECT_USERS = "select*from users";
+    String DELETE_BY_USERNAME = "delete from users where username=?";
+    String INSERT_USERS = "insert into users values(default, ?, ?, ?)";
+    String FIND_USER_BY_USERNAME = "select * from users where username = ?";
+
     private static JDBCUserStorage INSTANCE;
 
     private JDBCUserStorage() {
@@ -23,8 +29,8 @@ public class JDBCUserStorage implements UserStorage, JDBCConstantes {
 
     @Override
     public void add(User user) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_USERS);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
@@ -36,8 +42,8 @@ public class JDBCUserStorage implements UserStorage, JDBCConstantes {
 
     @Override
     public void deleteByUsername(String username) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_USERNAME);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_BY_USERNAME);
             preparedStatement.setString(1, username);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -47,8 +53,8 @@ public class JDBCUserStorage implements UserStorage, JDBCConstantes {
 
     @Override
     public List<User> findAll() {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            Statement statement = connection.createStatement();
+        try {
+            Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_USERS);
             List<User> userList = new ArrayList<>();
             while (resultSet.next()) {
@@ -68,8 +74,8 @@ public class JDBCUserStorage implements UserStorage, JDBCConstantes {
 
     @Override
     public void removeStorage() {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_USERS);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -79,8 +85,8 @@ public class JDBCUserStorage implements UserStorage, JDBCConstantes {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_USER_BY_USERNAME);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
