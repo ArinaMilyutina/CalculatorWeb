@@ -1,9 +1,6 @@
 package storage;
 
 interface JDBCConstantes {
-    String URL = "jdbc:postgresql://localhost:5432/postgres";
-    String PASSWORD = "arinemiller22";
-    String USERNAME = "postgres";
     String DELETE_USERS = "truncate table users";
     String SELECT_USERS = "select*from users";
     String DELETE_BY_USERNAME = "delete from users where username=?";
