@@ -56,10 +56,6 @@ public class CalculatorService extends Calculator {
         return JDBCOperationStorage.getInstance().findAll();
     }
 
-    public List<Operation> findByType(double num1) {
-        return JDBCOperationStorage.getInstance().findByOperation(num1);
-    }
-
     public void deleteOperation(Operation.Type type) {
         JDBCOperationStorage.getInstance().deleteOperation(String.valueOf(type));
     }
