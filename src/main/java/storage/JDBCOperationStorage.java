@@ -7,7 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
+
+public class JDBCOperationStorage extends AbstractStorage implements OperationStorage {
+    private static final String INSERT_OPERATIONS = " insert into operations values (default,?,?,?,?)";
+    private static final String FIND_OPERATIONS_BY_TYPE = "select *from operations where type=?";
+    private static final String DELETE_BY_TYPE = "delete from operations where type=?";
+    private static final String SELECT_OPERATIONS = "select *from operations";
+    private static final String DELETE_OPERATIONS = "truncate table operations";
     private static JDBCOperationStorage INSTANCE;
 
     private JDBCOperationStorage() {
@@ -23,8 +29,8 @@ public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
 
     @Override
     public void add(Operation operation) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_OPERATIONS);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(INSERT_OPERATIONS);
             preparedStatement.setDouble(1, operation.getNum1());
             preparedStatement.setDouble(2, operation.getNum2());
             preparedStatement.setDouble(3, operation.getResult());
@@ -39,8 +45,8 @@ public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
 
     @Override
     public List<Operation> findByOperation(String type) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_OPERATIONS_BY_TYPE);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(FIND_OPERATIONS_BY_TYPE);
             return getOperations(type, preparedStatement);
         } catch (SQLException ignored) {
 
@@ -66,8 +72,8 @@ public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
 
     @Override
     public void deleteOperation(String type) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_TYPE);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_BY_TYPE);
             preparedStatement.setString(1, type);
             preparedStatement.execute();
         } catch (SQLException e) {
@@ -78,8 +84,8 @@ public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
 
     @Override
     public List<Operation> findAll() {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            Statement statement = connection.createStatement();
+        try {
+            Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_OPERATIONS);
             List<Operation> operationList = new ArrayList<>();
             while (resultSet.next()) {
@@ -102,8 +108,8 @@ public class JDBCOperationStorage implements OperationStorage, JDBCConstantes {
 
     @Override
     public void removeStorage() {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_OPERATIONS);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_OPERATIONS);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
