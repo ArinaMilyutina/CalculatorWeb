@@ -33,9 +33,6 @@ public class CalculatorServlet extends HttpServlet {
         if (result.isEmpty() || num1 == null || num2 == null || type == null) {
             response.getWriter().println("Check the input data!!!");
         }
-        request.setAttribute("num1", num1);
-        request.setAttribute("num2", num2);
-        request.setAttribute("type", type);
         request.setAttribute("result", result.get());
         getServletContext().getRequestDispatcher("/calculator.jsp").forward(request, response);
     }
