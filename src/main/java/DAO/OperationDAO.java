@@ -1,10 +1,10 @@
-package storage;
+package DAO;
 
 import entity.Operation;
 
 import java.util.List;
 
-public interface OperationStorage {
+public interface OperationDAO {
     void add(Operation operation);
 
     void deleteOperation(String type);

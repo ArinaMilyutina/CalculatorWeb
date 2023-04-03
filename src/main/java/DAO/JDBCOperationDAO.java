@@ -1,4 +1,4 @@
-package storage;
+package DAO;
 
 import entity.Operation;
 
@@ -8,21 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JDBCOperationStorage extends AbstractStorage implements OperationStorage {
+public class JDBCOperationDAO extends AbstractDAO implements OperationDAO {
     private static final String INSERT_OPERATIONS = " insert into operations values (default,?,?,?,?)";
     private static final String FIND_OPERATIONS_BY_TYPE = "select *from operations where type=?";
     private static final String DELETE_BY_TYPE = "delete from operations where type=?";
     private static final String SELECT_OPERATIONS = "select *from operations";
     private static final String DELETE_OPERATIONS = "truncate table operations";
-    private static JDBCOperationStorage INSTANCE;
+    private static JDBCOperationDAO INSTANCE;
 
-    private JDBCOperationStorage() {
+    private JDBCOperationDAO() {
 
     }
 
-    public static JDBCOperationStorage getInstance() {
+    public static JDBCOperationDAO getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new JDBCOperationStorage();
+            INSTANCE = new JDBCOperationDAO();
         }
         return INSTANCE;
     }

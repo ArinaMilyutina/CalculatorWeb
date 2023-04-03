@@ -1,4 +1,4 @@
-package storage;
+package DAO;
 
 import entity.User;
 
@@ -7,22 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class JDBCUserStorage extends AbstractStorage implements UserStorage {
+public class JDBCUserDAO extends AbstractDAO implements UserDAO {
     String DELETE_USERS = "truncate table users";
     String SELECT_USERS = "select*from users";
     String DELETE_BY_USERNAME = "delete from users where username=?";
     String INSERT_USERS = "insert into users values(default, ?, ?, ?)";
     String FIND_USER_BY_USERNAME = "select * from users where username = ?";
 
-    private static JDBCUserStorage INSTANCE;
+    private static JDBCUserDAO INSTANCE;
 
-    private JDBCUserStorage() {
+    private JDBCUserDAO() {
 
     }
 
-    public static JDBCUserStorage getInstance() {
+    public static JDBCUserDAO getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new JDBCUserStorage();
+            INSTANCE = new JDBCUserDAO();
         }
         return INSTANCE;
     }
